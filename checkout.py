@@ -7,35 +7,39 @@ from utils import limpiar_consola,pregunta_si_no
 
 #Funcio para eliminar productos del carrito 
 def eliminar_producto_carrito():
+    
     while True:
         carrito_actual = obtener_carrito()
         limpiar_consola()
         print('Eliminar producto de carrito.')
         mostrar_carrito()
-        producto_eliminar = input('\nIngrese el codigo del producto a eliminar: ').strip().upper()
+
+       
+        while True:
+            producto_eliminar = input('\nIngrese el codigo del producto a eliminar: ').strip().upper()
+            if producto_eliminar in carrito_actual:
+                producto_eliminado = carrito_actual[producto_eliminar]['nombre']
+                del(carrito_actual[producto_eliminar])
+                print(f'Producto eliminado {producto_eliminado}')
+                break
+            else:
+                print('Por favor ingrese un codigo correcto.')
+                    
 
 
-        if producto_eliminar in carrito_actual:
-            producto_eliminado = carrito_actual[producto_eliminar]['nombre']
-            del(carrito_actual[producto_eliminar])
-            print(f'Producto eliminado {producto_eliminado}')
-            
-    
         #Si el carrito queda vacio ya no se sigue preguntado si eliminar otro producto
         if not  carrito_actual:
             limpiar_consola()
             mostrar_carrito()
             print('\nCarrito vacio')
             return
-            
+
 
         #Pregunta si se quiere seguien elimando productos
         eliminar_otro_producto = pregunta_si_no('Desa eliminar otro producto (Si-No): ')
         if eliminar_otro_producto == 'no':
-             break
-        elif eliminar_otro_producto == 'si':
-            continue
-      
+            break
+
 
 
 
