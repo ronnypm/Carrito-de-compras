@@ -109,7 +109,7 @@ def procesar_pago(total):
                 print(f'Pago exitoso. Gracias {nombre} por su compra')
                 exit()
         except ValueError:
-            print('Ingrese un dato correcto.')
+            print('Ingrese un dato correct.')
     
 
 

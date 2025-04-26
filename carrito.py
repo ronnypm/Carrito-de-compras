@@ -28,13 +28,18 @@ def validar_codigo_carrito():
     while True:
 
         codigo_producto = input('\nIngrese el código del producto que desea:  ').strip().upper()
+        try:
+            cantidad_producto  = int(input('Ingrese la cantidad: '))
+        except ValueError:
+            print("Por favor ingrese un numero")
 
         #valida que se ingrese un codigo correcto 
         if codigo_producto in productos:
-            return codigo_producto
+            return codigo_producto, cantidad_producto
         else:
             #si no se ingresa un codigo correcto imprime error y vuelve a pedir otro codigo
             print('Por favor ingrese un codigo correcto.')
+
 
 
 
@@ -44,18 +49,18 @@ carrito = {}
 def agregar_producto_carrito():
     global carrito
     while True:
-        codigo_producto = validar_codigo_carrito()
+        codigo_producto, cantidad_producto= validar_codigo_carrito()
         productos = obtener_catalogo()
 
         producto = productos[codigo_producto]
 
         if codigo_producto in carrito:
-            carrito[codigo_producto]['cantidad'] += 1
+            carrito[codigo_producto]['cantidad'] += cantidad_producto
         else:
             carrito[codigo_producto] = {
                 'nombre':producto['nombre'],
                 'precio':producto['precio'],
-                'cantidad': 1
+                'cantidad': cantidad_producto
 
         }
             
